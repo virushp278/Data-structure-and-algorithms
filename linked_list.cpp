@@ -35,7 +35,7 @@ void insertAtHead(Node* &head, int d){
 void insertAtTail(Node* &tail,int d){
     Node* temp = new Node(d);
     tail -> next = temp;
-    tail = temp;
+    tail = tail-> next;
 
 }
 
@@ -51,7 +51,13 @@ void insertAtPosition(Node* &tail ,Node* &head,int position,int d){
     int cnt = 1;
     while( cnt < position-1){
         temp = temp -> next;
-        cnt+=1;
+        cnt++;
+    }
+
+     //if it`s the last node
+     if(temp -> next == NULL){
+        insertAtTail(tail,d);
+        return ;
     }
 
     //creating a node for d
@@ -59,15 +65,19 @@ void insertAtPosition(Node* &tail ,Node* &head,int position,int d){
     nodeToInsert -> next = temp -> next;
     temp -> next = nodeToInsert; 
 
-    //if it`s the last node
-    if(temp -> next == NULL){
-        insertAtTail(tail,d);
-        return ;
-    }
+   
 
 } 
 
+// void deleteNode(int position, Node* & head,Node* &tail){
 void deleteNode(int position, Node* & head){
+
+    // Node* temp1 = head;
+    // int count=0;
+    // while(temp1 != NULL){
+    //     count++;
+    //     temp1 = temp1 -> next;
+    //     }
 
     //deleting first or start node
     if(position==1){
@@ -90,7 +100,13 @@ void deleteNode(int position, Node* & head){
             cnt++;
 
         } 
+        
+        
+        
         prev -> next = curr -> next;
+        // if(curr -> next =NULL){
+        //     tail = prev;
+        // }
         curr -> next = NULL;
         delete curr;
     }
@@ -141,9 +157,21 @@ int main(){
     insertAtPosition(tail,head,4,18);
     print(head);
 
+    cout <<"head " << head -> data << endl;
+    cout << "tail " << tail -> data<< endl; 
+    
+    
+    deleteNode(2,head); 
+    print(head);
+
+    cout <<"head " << head -> data << endl;
+    cout << "tail " << tail -> data<< endl; 
+    
+
     int len = findLen(head);
     cout << len << endl;
 
+   
     return 0;
 
 }
